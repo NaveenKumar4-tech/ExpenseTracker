@@ -83,17 +83,6 @@ WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'expense_tracker',
-# 		'USER': 'postgres',
-#         'PASSWORD': 'Naveenkumar',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 import dj_database_url
 
 DATABASES = {
@@ -140,8 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_DIR = os.path.join(BASE_DIR,'static')
-STATICFILES_DIRS = [STATIC_DIR]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 # ------------jwt -------------
 
