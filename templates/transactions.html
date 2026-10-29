@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Transactions | ExpenseX{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/transactions.css' %}">{% endblock %}
+{% block content %}
+<section class="transactions-page">
+  <h1 class="heading">Transactions</h1>
+       <i class="fa-solid fa-bars sidebar-btn"></i>
+  <span class="filter">
+  <p>View and manage your income and expenses.</p>
+  <select id="DateFilter">
+    <option value="all">All</option>
+    <option value="this_month">This Month</option>
+    <option value="last_month">Last Month</option>
+  </select>
+</span>
+
+  <input type="search" id="search" placeholder="Search transactions...">
+  <div class="spinner" aria-hidden="true"></div>
+  <div class="transactions" id="transactions-box"></div>
+  <div class="toast" role="status" aria-live="polite"></div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/transactions.js' %}"></script>
+{% endblock %}

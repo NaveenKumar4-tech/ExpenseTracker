@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Analytics | ExpenseX{% endblock %}
+{% block extra_css %}
+<style>
+
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f6f7fb;
+    color: #17191f;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 245px;
+    background: white;
+    border-right: 1px solid #e9e9ef;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    top:0;
+}
+
+.sidebar-btn{
+    display: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 0 10px 40px;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    background: #6956e5;
+    color: white;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+}
+
+.logo-highlight {
+    color: #6956e5;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #858793;
+    padding: 13px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: .2s;
+}
+
+.nav-item:hover {
+    background: #f5f3ff;
+    color: #6956e5;
+}
+
+.nav-item.active {
+    background: #f0edff;
+    color: #6956e5;
+    font-weight: 600;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.profile {
+    border-top: 1px solid #ededf1;
+    margin-top: 20px;
+    padding: 20px 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e8e3ff;
+    color: #6956e5;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.profile div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.profile strong {
+    font-size: 12px;
+}
+
+.profile small {
+    color: #999ba5;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.chart-container {
+        max-width: 800px;
+        width: 100%;
+        margin: 40px auto;
+        padding: 25px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 350px;
+    }
+
+    @media (max-width: 600px) {
+        .chart-container {
+            padding: 15px;
+        }
+
+        .chart-wrapper {
+            height: 280px;
+        }
+    }
+
+    .main{
+        margin-left:250px;
+        padding:20px
+    }
+
+
+/* -------------toast ---------------- */
+
+.toast{
+    background-color:#6956e5;
+    color:white;
+    min-width: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: -50%;
+    left:50%;
+    opacity:0;
+    transform:translate(-50%,10px);
+    transition: all .5s;
+    z-index:300
+}
+
+.show{
+    opacity:1; 
+    bottom:30px
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .logo {
+        justify-content: center;
+        padding: 0 0 35px;
+    }
+
+
+    .nav-item {
+        justify-content: center;
+        padding: 13px;
+    }
+
+    .nav-item span {
+        display: none;
+    }
+
+    .profile {
+        justify-content: center;
+    }
+
+    .profile div:nth-child(2),
+    .profile > i {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 25px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .main {
+        padding: 18px;
+    }
+
+    .header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .header-actions .icon-btn {
+        display: none;
+    }
+
+    .add-btn {
+        padding: 0 12px;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .transaction-tools {
+        margin-top: 15px;
+    }
+
+    .panel-header {
+        flex-wrap: wrap;
+    }
+
+    .search {
+        width: 150px;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .sidebar{
+        transform: translateX(-100%);
+        width:245px
+    }
+
+    .main{
+        margin: 0;
+        width: 100%;
+    }
+    .sidebar-btn{
+        font-size: 18px;
+        margin-left:90%;
+        display: inline;
+        margin-top:10px
+    }
+   
+      .nav-item span{
+        display: block;
+    }
+
+    .logo > span:last-child{
+        display: block;
+    }
+    
+    .profile div:nth-child(2){
+      display: flex;
+    }
+}
+
+.sidebar-show{
+    transform: translateX(0%);
+}
+
+.logout-btn{
+    width: 100%;
+    padding: 10px 20px;
+    background: #6956e5;
+    border-radius: 10px;
+    color: white;
+}
+
+</style>
+{% endblock %}
+{% block content %}
+        <i class="fa-solid fa-bars sidebar-btn"></i>
+<div class="chart-container">
+
+    <h2>Expense Overview</h2>
+
+    <p class="subtitle">Category-wise spending</p>
+
+    <div class="chart-wrapper">
+        <canvas id="expenseChart"></canvas>
+    </div>
+
+    </div>
+
+    <! -------------------- Bar chart ------------------------->
+    <div class="chart-container">
+
+    <h2>Monthly Expenses</h2>
+
+    <p class="subtitle">Track your spending over time</p>
+
+    <div class="chart-wrapper">
+        <canvas id="expenseLineChart"></canvas>
+    </div>
+
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/analytics.js' %}"></script>
+{% endblock %}

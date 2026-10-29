@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Accounts | ExpenseX{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/accounts.css' %}">{% endblock %}
+{% block content %}
+<div class="main-content"> 
+     <div class="page-content">
+        <div class="page-heading">
+          <div><p class="eyebrow">YOUR WORKSPACE</p><h1>Account</h1><p class="page-subtitle">Manage your profile, settings and preferences</p></div>
+            <i class="fa-solid fa-bars sidebar-btn"></i>
+        </div>
+
+        <section class="card profile-card" aria-labelledby="profileTitle">
+          <div class="profile-summary">
+            <div class="avatar-wrap">
+              <div class="avatar avatar-large" id="profileAvatar">N</div>
+              <button class="camera-button" id="avatarButton" aria-label="Change avatar initials">＋</button>
+            </div>
+            <h2 id="profileName" class="profileName"></h2>
+            <p id="profileEmail" class="muted"></p>
+            <span class="plan-badge">✦ Free Plan</span>
+          </div>
+          <div class="profile-details">
+            <div class="section-heading">
+              <h2 id="profileTitle">Profile Information</h2>
+              <button class="button button-primary" id="editProfileButton"><span>✎</span> Edit Profile</button>
+            </div>
+            <div class="detail-row">
+              <span class="detail-icon">♙</span><div><span class="detail-label">Full Name</span><strong id="detailName"></strong></div>
+            </div>
+            <div class="detail-row">
+              <span class="detail-icon">✉</span><div><span class="detail-label">Email Address</span><strong id="detailEmail"></strong></div>
+            </div>
+            <div class="detail-row">
+              <span class="detail-icon"></span><div><span class="detail-label">Date Joined</span><strong id="detailDate"></strong></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <section class="card settings-card">
+            <div class="card-title"><span class="title-icon">⚙</span><h2>Account Settings</h2></div>
+            <button class="setting-row" data-modal="passwordModal"><span class="setting-icon">♙</span><span class="setting-copy"><strong>Change Password</strong><small>Update your password for better security</small></span><span class="row-arrow">›</span></button>
+            <div class="setting-row setting-row-static"><span class="setting-icon">♧</span><span class="setting-copy"><strong>Notifications</strong><small>Manage your notification preferences</small></span><label class="switch" aria-label="Enable notifications"><input type="checkbox" id="notificationsToggle" checked><span class="switch-slider"></span></label></div>
+            <button class="setting-row" id="languageButton"><span class="setting-icon">◎</span><span class="setting-copy"><strong>Language</strong><small>Choose your preferred language</small></span><span class="row-arrow">›</span></button>
+            <button class="setting-row" id="privacyButton"><span class="setting-icon">⬡</span><span class="setting-copy"><strong>Privacy</strong><small>Control your data and privacy settings</small></span><span class="row-arrow">›</span></button>
+          </section>
+
+          <section class="card summary-card">
+            <div class="card-title"><span class="title-icon">▥</span><h2>Expense Summary</h2></div>
+            <div class="spend-highlight">
+              <span>Total Spent (This Month)</span>
+              <div class="spend-line"><strong id="totalSpent">₹ 12,450</strong><span class="trend"><b>↑ 12%</b><small>vs last month</small></span></div>
+            </div>
+            <div class="budget-box">
+              <div class="budget-top"><strong>Monthly Spending Limit</strong><strong id="budgetAmount">₹ 20,000</strong></div>
+              <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+              <div class="budget-bottom"><button id="editBudgetButton" class="text-button">Edit limit</button><span id="budgetPercent">62% used</span></div>
+            </div>
+          </section>
+
+          <section class="card connected-card">
+            <div class="card-title"><span class="title-icon">↗</span><h2>Connected Accounts</h2></div>
+            <div class="connected-service">
+              <span class="google-mark" aria-hidden="true">G</span>
+              <div class="service-copy"><strong>Google</strong><small id="googleStatus">Linked for quick login</small></div>
+              <button class="status-badge" id="googleConnectButton">Connected</button>
+            </div>
+            <div class="info-note"><span>i</span><p>Connect your bank account for automatic transaction syncing (coming soon).</p></div>
+          </section>
+
+          <section class="card danger-card">
+            <div class="card-title danger-title"><span class="title-icon">⚠</span><h2>Danger Zone</h2></div>
+            <button class="delete-row" id="deleteAccountButton"><span class="delete-icon">▤</span><span class="setting-copy"><strong>Delete Account</strong><small>Permanently delete your account and all data.</small></span><span class="row-arrow">›</span></button>
+          </section>
+        </div>
+        <footer class="page-footer">© 2026 ExpenseTracker <span>Made for better money habits.</span></footer>
+      </div>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><p class="eyebrow">ACCOUNT PREFERENCES</p><h2 id="modalTitle">Edit Profile</h2></div><button class="icon-button close-modal" id="closeModalButton" aria-label="Close dialog">×</button></div>
+      <form id="profileForm">
+        <div class="form-field"><label for="nameInput">Full name</label><input id="nameInput" name="name" required maxlength="80" autocomplete="name"></div>
+        <div class="form-field"><label for="emailInput">Email address</label><input id="emailInput" name="email" type="email" required autocomplete="email"></div>
+        <div class="modal-actions"><button type="button" class="button button-outline" id="cancelModalButton">Cancel</button><button type="submit" class="button button-primary">Save changes</button></div>
+      </form>
+    </section>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/accounts.js' %}"></script>
+{% endblock %}

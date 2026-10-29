@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Expense Tracker{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar" id="sidebar">
+        <a class="logo" href="{% url 'dashboard' %}" data-spa-link>
+            <span class="logo-icon"><i class="fa-solid fa-wallet"></i></span>
+            <span>Expense<span class="logo-highlight">X</span></span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="{% url 'dashboard' %}" class="nav-item" data-spa-link>
+                <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
+            </a>
+            <a href="{% url 'transaction' %}" class="nav-item" data-spa-link>
+                <i class="fa-solid fa-receipt"></i><span>Transactions</span>
+            </a>
+            <a href="{% url 'analytics' %}" class="nav-item" data-spa-link>
+                <i class="fa-solid fa-chart-column"></i><span>Analytics</span>
+            </a>
+            <a href="{% url 'accounts' %}" class="nav-item" data-spa-link>
+                <i class="fa-solid fa-wallet"></i><span>Accounts</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            {# Add a matching URL/view before enabling Settings. #}
+            <button id="logout-btn" class="logout-btn nav-item">
+                <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+                
+            </button>
+            <div class="profile">
+
+                <div class="avatar"></div>
+                <div><strong class="username"></strong><small>Personal Account</small></div>
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main" id="page-content" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <div class="toast" id="toast"></div>
+</div>
+
+{# Shared scripts: loaded ONCE and never re-run by nav.js (data-persist). #}
+<script src="https://cdn.jsdelivr.net/npm/chart.js" data-persist></script>
+<script src="{% static 'js/auth.js' %}" data-persist></script>
+<script src="{% static 'js/common.js' %}" data-persist></script>
+<script src="{% static 'js/nav.js' %}" data-persist></script>
+
+{# Page scripts: nav.js re-creates and runs these on every visit. #}
+{% block extra_js %}{% endblock %}
+</body>
+</html>
